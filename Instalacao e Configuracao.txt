@@ -1,0 +1,34 @@
+Instalacoes
+- VSCode * Habilitar opcao de criar no PATH do windows para chamar via prompt de comando "code". Isso ajuda a abrir o VsCode na pasta pelo prompt de comando.
+- NodeJs * Instalacao default
+- Java JDK 8 +
+- Android Studio
+
+Configuracao:
+ - Variaveis de Ambiente no windwos:
+	* JAVA_HOME - Caminho de instalacao do JDK
+	* ANDROID_HOME - Caminho de armazenamento dos SDK do android pelo android studio. Pegar em Configuracoes > Settings > Android SDK.
+- Variaveis de Ambiente no windows - tratamento variavel PATH. Vai adicionar variaveis:
+	* %ANDROID_HOME%\emulator
+	* %ANDROID_HOME%\tools
+	* %ANDROID_HOME%\tools\bin
+	* %ANDROID_HOME%\platform-tools
+	
+- Variaveis de ambiente no windows: 
+	* Checar se foi adicionado caminho da instalacao do VsCode
+	* Checar se foi adicionado caminho da instalacao do nodejs
+	
+	
+Posterior configuracoes e instalacoes no prompt de comando rodar sdkmanager para aceiar licensas:
+- sdkmanager --licenses
+
+Checando emulator existentes
+- emulator -list-avds
+
+Iniciando emulator
+emulator -no-snapshot -avd "nome do emulator disponivel"
+	>>> Caso haja erro de aceleracao, seguir tutorial:
+		1) Abra o Gerenciador de SDK (no Android Studio, vá em Ferramentas> Android> Gerenciador de SDK) e faça o download do Intel x86 Emulator Accelerator (instalador HAXM), se você não tiver.
+		2) Agora vá para o diretório do SDK C:\users\%USERNAME%\AppData\Local\Android\sdk\extras\intel\Hardware_Accelerated_Execution_Manager\e execute o arquivo chamado intelhaxm-android.exe.
+			Caso você receba um erro como "A tecnologia de virtualização Intel (vt, vt-x) não está ativada". Vá para as configurações do BIOS e ative a virtualização de hardware.
+		3) Reinicie o Android Studio e tente iniciar o AVD novamente. Pode demorar um minuto ou 2 para mostrar a janela do emulador.
