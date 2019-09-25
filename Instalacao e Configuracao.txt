@@ -19,16 +19,18 @@ Configuracao:
 	* Checar se foi adicionado caminho da instalacao do nodejs
 	
 	
-Posterior configuracoes e instalacoes no prompt de comando rodar sdkmanager para aceiar licensas:
-- sdkmanager --licenses
-
-Checando emulator existentes
-- emulator -list-avds
-
-Iniciando emulator
-emulator -no-snapshot -avd "nome do emulator disponivel"
+Posterior configuracoes e instalacoes no prompt de comando rodar sdkmanager para aceiar licensas: sdkmanager --licenses
+Checando emulator existentes: emulator -list-avds
+Iniciando emulator emulator -no-snapshot -avd "nome do emulator disponivel"
 	>>> Caso haja erro de aceleracao, seguir tutorial:
 		1) Abra o Gerenciador de SDK (no Android Studio, vá em Ferramentas> Android> Gerenciador de SDK) e faça o download do Intel x86 Emulator Accelerator (instalador HAXM), se você não tiver.
 		2) Agora vá para o diretório do SDK C:\users\%USERNAME%\AppData\Local\Android\sdk\extras\intel\Hardware_Accelerated_Execution_Manager\e execute o arquivo chamado intelhaxm-android.exe.
 			Caso você receba um erro como "A tecnologia de virtualização Intel (vt, vt-x) não está ativada". Vá para as configurações do BIOS e ative a virtualização de hardware.
 		3) Reinicie o Android Studio e tente iniciar o AVD novamente. Pode demorar um minuto ou 2 para mostrar a janela do emulador.
+		
+Configurando react-native-cli, responsavel por habilitar/criar comando react-native para iniciar projeto: npm i -g react-native-cli
+
+Criando novo projeto react-native: react-native init "pasta a ser criada para projeto"
+	>> Neste passo sera iniciado os arquivos do react-native do projeto, para iniciar versao inicial do aplicativo
+
+Para executar o projeto react-native, dentro da pasta criada, execute: react-native run-android
