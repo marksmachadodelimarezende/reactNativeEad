@@ -21,7 +21,7 @@ Configuracao:
 	
 Posterior configuracoes e instalacoes no prompt de comando rodar sdkmanager para aceiar licensas: sdkmanager --licenses
 Checando emulator existentes: emulator -list-avds
-Iniciando emulator emulator -no-snapshot -avd "nome do emulator disponivel"
+Iniciando emulator: emulator -no-snapshot -avd "nome do emulator disponivel"
 	>>> Caso haja erro de aceleracao, seguir tutorial:
 		1) Abra o Gerenciador de SDK (no Android Studio, vá em Ferramentas> Android> Gerenciador de SDK) e faça o download do Intel x86 Emulator Accelerator (instalador HAXM), se você não tiver.
 		2) Agora vá para o diretório do SDK C:\users\%USERNAME%\AppData\Local\Android\sdk\extras\intel\Hardware_Accelerated_Execution_Manager\e execute o arquivo chamado intelhaxm-android.exe.
