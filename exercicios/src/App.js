@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import Simples from './componentes/Simples'
+import SimplesArrow from './componentes/SimplesArrow'
 
 export default class App extends Component {
-    //funcao responsavel por renderizar a tela. Ela retorna os objetos - return()
     render(){
       return (
         <View style={styles.container}>
-          <Text>App tttt!</Text>
+          <Text style={styles.f20}>App!</Text>
+          <Simples texto='Meu texto para componente por parametro!!'></Simples>
+          <SimplesArrow texto='Componente texto Simples por arrow function!'></SimplesArrow>
         </View>
       )
     }
