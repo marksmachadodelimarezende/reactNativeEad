@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import Simples from './componentes/Simples'
 import SimplesArrow from './componentes/SimplesArrow'
 import ParImpar from './componentes/ParImpar'
+import { MegaSena } from './componentes/Multi'
 
 export default class App extends Component {
     render(){
@@ -13,7 +14,7 @@ export default class App extends Component {
           <SimplesArrow texto='Componente texto Simples por arrow function!'></SimplesArrow>
           <ParImpar numero="4"></ParImpar>
           <ParImpar numero="5"></ParImpar>
-
+          <MegaSena numeros={8} />
         </View>
       )
     }
