@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import Padrao from '../estilo/Padrao'
 
+const ParOuImpar = props => {
+    return props % 2 == 0 ? 'Par' : 'Impar'
+}
+
 export default props =>
     <View>
-        {
-            props.numero % 2 == 0
-            ? <Text style={Padrao.ex}>{props.numero} é Par</Text>
-            : <Text style={Padrao.ex}>{props.numero} é Impar</Text>
-        }
+        <Text style={Padrao.ex}>{props.numero} {ParOuImpar(props.numero)}</Text>
     </View>
