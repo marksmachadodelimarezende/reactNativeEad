@@ -34,3 +34,4 @@ Criando novo projeto react-native: react-native init "pasta a ser criada para pr
 	>> Neste passo sera iniciado os arquivos do react-native do projeto, para iniciar versao inicial do aplicativo
 
 Para executar o projeto react-native, dentro da pasta criada, execute: react-native run-android
+

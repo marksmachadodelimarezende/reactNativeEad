@@ -1,10 +1,10 @@
 import React from 'react'
-import { createDrawerNavigator } from 'react-native-navigation'
+import { createDrawerNavigator } from 'react-navigation'
 
 import Simples from './componentes/Simples'
 import SimplesArrow from './componentes/SimplesArrow'
 import ParImpar from './componentes/ParImpar'
-import {MegaSena} from './componentes/Multi'
+import {Inverter, MegaSena} from './componentes/Multi'
 
 export default createDrawerNavigator({
     MegaSena: {
