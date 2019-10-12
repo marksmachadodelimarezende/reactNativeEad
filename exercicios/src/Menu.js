@@ -6,8 +6,10 @@ import SimplesArrow from './componentes/SimplesArrow'
 import ParImpar from './componentes/ParImpar'
 import {Inverter, MegaSena} from './componentes/Multi'
 import Contador from './componentes/Contador'
+import Plataformas from './componentes/Plataformas'
 
 export default createDrawerNavigator({
+    Plataformas: Plataformas,
     Contador: {
         screen: () => <Contador valorInicial={200} />
     },
