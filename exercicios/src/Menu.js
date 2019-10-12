@@ -5,8 +5,12 @@ import Simples from './componentes/Simples'
 import SimplesArrow from './componentes/SimplesArrow'
 import ParImpar from './componentes/ParImpar'
 import {Inverter, MegaSena} from './componentes/Multi'
+import Contador from './componentes/Contador'
 
 export default createDrawerNavigator({
+    Contador: {
+        screen: () => <Contador valorInicial={200} />
+    },
     MegaSena: {
         screen: () => <MegaSena numeros={9} />,
         navigationOptions: {
@@ -26,6 +30,9 @@ export default createDrawerNavigator({
         screen: () => <Simples texto='Texto pelo componente simples'/>
     },
     SimplesArrow: {
-        screen: () => <SimplesArrow texto='Texto componente Arrow Simples'/>
+        screen: () => <SimplesArrow texto='Texto componente Arrow Simples'/>,
+        navigationOptions: {
+            title: 'Simples por Arrow Function'
+        }
     }
-}, { drawerWidth: 300})
+}, { drawerWidth: 200})
