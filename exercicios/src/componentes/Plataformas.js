@@ -8,6 +8,7 @@ export default props => {
         } else {
             Alert.alert('Informação', msg)
         }
+        Alert.alert(Platform.OS, msg)
     }
 
     return (

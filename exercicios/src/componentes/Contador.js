@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {View, Text, TouchableHighlight} from 'react-native'
+import Padrao from '../estilo/Padrao'
 
 export default class Contador extends Component {
     //Sempre deve retornar ao menos a funcao render(){}.
@@ -19,8 +20,9 @@ export default class Contador extends Component {
     render() {
         return (
             <View>
-                <Text>{this.state.numero}</Text>
+                <Text style={Padrao.ex}>{this.state.numero}</Text>
                 <TouchableHighlight
+                    style={Padrao.ex}
                     onPress={this.incrementa}
                     onLongPress={this.reseta}>
                     <Text>Incrementar / Zerar</Text>

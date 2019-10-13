@@ -10,5 +10,7 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         textAlign: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
     }
 })
