@@ -7,10 +7,17 @@ export default StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#222',
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
-        textAlign: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
+    },
+    input: {
+        height: 70,
+        fontSize: 40,
+        borderColor: 'gray',
+        borderWidth: 1,
+        backgroundColor: 'gray'
+    },
+    f40: {
+        fontSize: 40
     }
 })

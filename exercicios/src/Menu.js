@@ -8,8 +8,10 @@ import {Inverter, MegaSena} from './componentes/Multi'
 import Contador from './componentes/Contador'
 import Plataformas from './componentes/Plataformas'
 import ValidarProps from './componentes/ValidarProps'
+import Eventos from './componentes/Eventos'
 
 export default createDrawerNavigator({
+    Eventos: Eventos,
     ValidarProps: {
         screen: () => <ValidarProps label={'Ano somado: '} ano={18}></ValidarProps>
     },
