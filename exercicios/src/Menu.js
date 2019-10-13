@@ -9,8 +9,12 @@ import Contador from './componentes/Contador'
 import Plataformas from './componentes/Plataformas'
 import ValidarProps from './componentes/ValidarProps'
 import Eventos from './componentes/Eventos'
+import {Avo} from './componentes/ComunicacaoDireta'
 
 export default createDrawerNavigator({
+    ComunicacaoDireta: {
+        screen: () => <Avo nome='Avo' sobrenome='Silva'></Avo>
+    },
     Eventos: Eventos,
     ValidarProps: {
         screen: () => <ValidarProps label={'Ano somado: '} ano={18}></ValidarProps>
