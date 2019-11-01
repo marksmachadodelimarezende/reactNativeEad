@@ -4,14 +4,41 @@ import {Platform, StyleSheet, Text, View} from 'react-native';
 import Button from './components/Button';
 import Display from './components/Display'
 
+const initialState = {
+  displayValue: '0',
+  clearDisplay: false,
+  operation: null,
+  values:[0,0],
+  currentIndex: 0,
+}
 export default class App extends Component {
-  state={
-    displayValue: '0'
+  state={ ...initialState }
+
+  addDigito = n => {
+    if (n === '.' && this.state.displayValue.includes('.')){
+      return
+    }
+    const clearDisplay = this.state.displayValue === '0' || this.state.clearDisplay
+    const currentValue = clearDisplay ? '' : this.state.displayValue
+    const displayValue = currentValue + n
+    this.setState({ displayValue, clearDisplay: false})
+
+    if (n !== '.'){
+      const newValue = parseFloat(displayValue)
+      const values = [...this.state.values]
+      values[this.state.currentIndex] = newValue
+      this.setState({ values })
+    }
   }
 
-  addDigito = n => {this.setState({displayValue: this.state.displayValue + '' + n})}
-  clearMemory = () => {this.setState({displayValue: '0'})}
-  setOperation = operation => {}
+  clearMemory = () => {
+    this.setState({ ...initialState })
+  }
+  
+  setOperation = operation => {
+
+  }
+  
   render() {
     return(
       <View style={styles.container}>
