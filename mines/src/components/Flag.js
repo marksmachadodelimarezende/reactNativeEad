@@ -1,49 +1,19 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View} from 'react-native'
+import flagStyles from './styles/flagStyles'
 
 export default props => {
+    const styleFlagpoleBigger = props.bigger ? flagStyles.flagpoleBigger : null
+    const styleFlagBigger = props.bigger ? flagStyles.flagBigger : null
+    const styleBase1Bigger = props.bigger ? flagStyles.base1Bigger : null
+    const styleBase2Bigger = props.bigger ? flagStyles.base2Bigger : null
+
     return(
-        <View style={styles.container}>
-            <View style={styles.flagpole}></View>
-            <View style={styles.flag}></View>
-            <View style={styles.base1}></View>
-            <View style={styles.base2}></View>
+        <View style={flagStyles.container}>
+            <View style={[flagStyles.flagpole, styleFlagpoleBigger]}></View>
+            <View style={[flagStyles.flag, styleFlagBigger]}></View>
+            <View style={[flagStyles.base1, styleBase1Bigger]}></View>
+            <View style={[flagStyles.base2, styleBase2Bigger]}></View>
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 2,
-    },
-    flagpole: {
-        position: 'absolute',
-        height: 14,
-        width: 2,
-        backgroundColor: '#222',
-        marginLeft: 9,
-    },
-    flag: {
-        position: 'absolute',
-        height: 5,
-        width: 6,
-        backgroundColor: '#F22',
-        marginLeft: 3,
-    },
-    base1: {
-        position: 'absolute',
-        height: 2,
-        width: 6,
-        backgroundColor: '#222',
-        marginLeft: 7,
-        marginTop: 10,
-    },
-    base2: {
-        position: 'absolute',
-        height: 2,
-        width: 10,
-        backgroundColor: '#222',
-        marginLeft: 5,
-        marginTop: 12,
-    }
-})

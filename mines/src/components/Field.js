@@ -1,19 +1,19 @@
 import React from 'react'
-import {View, StyleSheet, Text} from 'react-native'
-import params from '../params'
+import {View, Text} from 'react-native'
+import fieldStyles from './styles/fieldStyles'
 import Mine from './Mine'
 import Flag from './Flag'
 
 export default props => {
     const {mined, opened, nearMines, exploded, flagged} = props
 
-    const styleField = [styles.field]
+    const styleField = [fieldStyles.field]
     //Outros estilos por testes
-    if (opened) styleField.push(styles.opened)
-    if (exploded) styleField.push(styles.exploded)
-    if (flagged) styleField.push(styles.flagged)
-    //if (styleField.length === 1) styleField.push(styles.regular)
-    if (!opened && !exploded) styleField.push(styles.regular)
+    if (opened) styleField.push(fieldStyles.opened)
+    if (exploded) styleField.push(fieldStyles.exploded)
+    if (flagged) styleField.push(fieldStyles.flagged)
+    //if (styleField.length === 1) styleField.push(fieldStyles.regular)
+    if (!opened && !exploded) styleField.push(fieldStyles.regular)
 
     let color = null
     if (nearMines > 0) {
@@ -25,42 +25,10 @@ export default props => {
     return (
         <View style={styleField}>
            {!mined && opened && nearMines > 0 
-            ? <Text style={[styles.label, {color: color}]}>{nearMines}</Text> 
+            ? <Text style={[fieldStyles.label, {color: color}]}>{nearMines}</Text> 
             : false }
            {mined && opened ? <Mine /> : false}
            {flagged && !opened ? <Flag /> : false}
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    field: {
-        height: params.blockSize,
-        width: params.blockSize,
-        borderWidth: params.borderSize,
-    },
-    regular: {
-        backgroundColor: '#999',
-        borderLeftColor: '#CCC',
-        borderTopColor: '#CCC',
-        borderRightColor: '#333',
-        borderBottomColor: '#333',
-    },
-    opened: {
-        backgroundColor: '#999',
-        borderColor: '#777',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    label: {
-        fontWeight: 'bold',
-        fontSize: params.fontSize,
-    },
-    exploded: {
-        backgroundColor: 'red',
-        borderColor: 'red',
-    },
-    flagged: {
-
-    }
-})
