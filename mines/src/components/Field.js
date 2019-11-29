@@ -5,7 +5,7 @@ import Mine from './Mine'
 import Flag from './Flag'
 
 export default props => {
-    const {mined, opened, nearMines, exploded, flagged} = props
+    const {mined, opened, nearMines, exploded, flagged, bigger} = props
 
     const styleField = [fieldStyles.field]
     //Outros estilos por testes
@@ -29,6 +29,7 @@ export default props => {
             : false }
            {mined && opened ? <Mine /> : false}
            {flagged && !opened ? <Flag /> : false}
+           {flagged && bigger ? <Flag bigger/> : false}
         </View>
     )
 }
