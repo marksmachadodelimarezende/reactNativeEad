@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, Alert} from 'react-native';
+import {View, Alert} from 'react-native';
 import params from './params'
 import { styles } from './appStyles'
 import MineField from './components/MineField'
