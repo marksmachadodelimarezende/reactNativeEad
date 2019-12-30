@@ -7,7 +7,7 @@ import Swipeable from 'react-native-swipeable'
 import styles from './estilos/taskStyles'
 
 export default props => {
-    let check = null
+    /*let check = null
     if(props.doneAt !== null){
         check = (
             <View style={styles.done}>
@@ -16,6 +16,13 @@ export default props => {
         )
     } else {
         check = (<View style={styles.pending}></View>)
+    }*/
+
+    let styleDate = null
+    if(props.doneAt !== null){
+        styleDate = styles.date
+    } else {
+        styleDate = [styles.date, {paddingHorizontal: 0,}]
     }
 
     const descStyle = props.doneAt !== null ? { textDecorationLine: 'line-through'} : {}
@@ -59,7 +66,7 @@ export default props => {
                             <View style={styles.done}>
                                 <Icon name='check' size={12} color={styles.iconColor.color} />
                             </View> : false}
-                        <Text style={styles.date}>
+                        <Text style={styleDate}>
                             {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [/] YYYY')}
                         </Text>
                     </View>             
