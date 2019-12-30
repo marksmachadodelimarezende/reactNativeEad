@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     actionButtonIcon: {
         fontSize: 25,
         height: 22,
-        backgroundColor: commonStyles.colors.secondary,
+        backgroundColor: commonStyles.colors.transparent,
         color: 'black',
       },
     actionButtonItemsIcon: {

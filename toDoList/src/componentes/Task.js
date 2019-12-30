@@ -43,20 +43,26 @@ export default props => {
     ]
 
     return (
-        <Swipeable  leftButtons ={leftButtons}  leftActionActivationDistance={200}  onLeftActionActivate ={() => props.onToggleTask(props.id)}
-                    rightButtons={rightButtons} rightActionActivationDistance={200} onRightActionActivate={() => props.onDelete(props.id)}
+        <Swipeable  leftActionActivationDistance={150} onLeftActionActivate ={() => props.onToggleTask(props.id)} leftButtons ={leftButtons}
+                    rightActionActivationDistance={150} onRightActionActivate={() => props.onDelete(props.id)} rightButtons={rightButtons}
                     >
             <View style={styles.container}>
-                <TouchableWithoutFeedback onPress={() => props.onToggleTask(props.id)}>
+                {/*<TouchableWithoutFeedback onPress={() => props.onToggleTask(props.id)}>
                     <View style={styles.checkContainer}>{check}</View>
-                </TouchableWithoutFeedback>
-                <View style={{width: '90%'}}>
+                </TouchableWithoutFeedback>*/}
+                <View>
                     <Text style={[styles.description, descStyle]}>
                         {props.desc}
                     </Text>
-                    <Text style={styles.date}>
-                        {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [/] YYYY')}
-                    </Text>
+                    <View style={styles.checkContainer}>
+                        {props.doneAt !== null ? 
+                            <View style={styles.done}>
+                                <Icon name='check' size={12} color={styles.iconColor.color} />
+                            </View> : false}
+                        <Text style={styles.date}>
+                            {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [/] YYYY')}
+                        </Text>
+                    </View>             
                 </View>
             </View>
         </Swipeable>
