@@ -77,7 +77,7 @@ export default class AddTask extends Component {
                             value={this.state.desc} />
                             
                         {datePicker}
-                        {/*<DatePicker/>*/}
+                        {/*<DatePicker/> //Precisa enviar variavel do state para componente e recuperar/atualizar estado na volta*/}
 
                         <View style={styles.rodape}>
                             <TouchableOpacity onPress={this.props.onCancel}>
