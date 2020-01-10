@@ -8,6 +8,7 @@ export default {
         subText: '#555',
         transparent: 'transparent',
         white: 'white',
+        red: 'red',
         borderLine: '#e3e3e3',
     },
     backgrouds: {

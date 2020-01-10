@@ -19,10 +19,24 @@ export default props => {
     }*/
 
     let styleDate = null
+    let iconLeftDate = null
     if(props.doneAt !== null){
         styleDate = styles.date
+        iconLeftDate = (
+            <View style={styles.done}>
+                <Icon name='check' size={12} color={'green'} />
+            </View>
+        )
     } else {
-        styleDate = [styles.date, {paddingHorizontal: 0,}]
+        const dataAtual = new Date();
+        const fontColorLast = moment(props.estimateAt).toDate() < dataAtual ? styles.dateLastColor : null
+        const paddingHorizontal = moment(props.estimateAt).toDate() < dataAtual ?  styles.date.paddingHorizontal : 0
+        iconLeftDate = moment(props.estimateAt).toDate() < dataAtual ? (
+            <View style={[styles.done, {backgroundColor: 'transparent',}]}>
+                <Icon name='clock-o' size={12} color={'red'} />
+            </View> 
+        ) : false
+        styleDate = [styles.date, {paddingHorizontal}, fontColorLast]
     }
 
     const descStyle = props.doneAt !== null ? { textDecorationLine: 'line-through'} : {}
@@ -62,10 +76,7 @@ export default props => {
                         {props.desc}
                     </Text>
                     <View style={styles.checkContainer}>
-                        {props.doneAt !== null ? 
-                            <View style={styles.done}>
-                                <Icon name='check' size={12} color={styles.iconColor.color} />
-                            </View> : false}
+                        {iconLeftDate}
                         <Text style={styleDate}>
                             {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [/] YYYY')}
                         </Text>

@@ -12,9 +12,10 @@ const styles = StyleSheet.create({
         borderColor: '#AAA',
     },
     done: {
+        marginTop: 1.5,
         height: 12,
         width: 12,
-        backgroundColor: '#4D7031',
+        backgroundColor: commonStyles.colors.transparent,
         alignItems: 'center',
         justifyContent: 'flex-end',
     },
@@ -40,7 +41,10 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.subText,
         fontSize: 12,
-        paddingHorizontal: 5,
+        paddingHorizontal: 3,
+    },
+    dateLastColor: {
+        color: commonStyles.colors.red,
     },
     exclude: {
         flex: 1,
