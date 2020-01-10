@@ -7,5 +7,10 @@ export default {
         mainText: '#222',
         subText: '#555',
         transparent: 'transparent',
+        white: 'white',
+        borderLine: '#e3e3e3',
+    },
+    backgrouds: {
+        transparenteEscurecido: 'rgba(0,0,0,0.7)',
     }
 }

@@ -14,6 +14,7 @@ import {
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import styles from './addTaskStyles'
+import DatePicker from '../componentes/DatePicker'
 
 const initialState = {desc: '', date: new Date() }
 
@@ -66,28 +67,30 @@ export default class AddTask extends Component {
                 <TouchableWithoutFeedback onPress={this.props.onCancel}>
                     <View style={styles.offset}></View>
                 </TouchableWithoutFeedback>
+                <View style={styles.offsetCenter}>
+                    <View style={styles.container}>
+                        <Text style={styles.header}>Nova Tarefa</Text>
 
-                <View style={styles.container}>
-                    <Text style={styles.header}>Nova Tarefa</Text>
+                        <TextInput placeholder="Descrição..." 
+                            style={styles.input}
+                            onChangeText={desc => this.setState({ desc })}
+                            value={this.state.desc} />
+                            
+                        {datePicker}
+                        {/*<DatePicker/>*/}
 
-                    <TextInput placeholder="Descrição..." style={styles.input}
-                        onChangeText={desc => this.setState({ desc })}
-                        value={this.state.desc} />
+                        <View style={styles.rodape}>
+                            <TouchableOpacity onPress={this.props.onCancel}>
+                                <Text style={styles.button}>Cancelar</Text>
+                            </TouchableOpacity>
 
-                    {datePicker}
+                            <TouchableOpacity onPress={this.save}>
+                                <Text style={styles.button}>Salvar</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style={styles.rodape}>
-                        <TouchableOpacity onPress={this.props.onCancel}>
-                            <Text style={styles.button}>Cancelar</Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={this.save}>
-                            <Text style={styles.button}>Salvar</Text>
-                        </TouchableOpacity>
                     </View>
-
                 </View>
-
                 <TouchableWithoutFeedback onPress={this.props.onCancel}>
                     <View style={styles.offset}></View>
                 </TouchableWithoutFeedback>

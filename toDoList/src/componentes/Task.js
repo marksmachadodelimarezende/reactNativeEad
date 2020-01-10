@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import Swipeable from 'react-native-swipeable'
-import styles from './estilos/taskStyles'
+import styles from './taskStyles'
 
 export default props => {
     /*let check = null

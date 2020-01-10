@@ -3,17 +3,31 @@ import commonStyles from '../commonStyles'
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: commonStyles.colors.white,
         justifyContent: 'space-between',
+        width: '96%', 
+        borderRadius: 10,
     },
     offset: {
         flex: 1,
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        backgroundColor: commonStyles.backgrouds.transparenteEscurecido,
+    },
+    offsetCenter: {
+        backgroundColor: commonStyles.backgrouds.transparenteEscurecido, 
+        alignItems: 'center',
     },
     button: {
-        margin: 20,
-        marginRight: 30,
+        margin: 10,
+        marginRight: 20,
         color: commonStyles.colors.default,
+        fontSize: 18,
+        borderColor: commonStyles.colors.borderLine,
+        backgroundColor: commonStyles.colors.borderLine,
+        borderWidth: 0.5,
+        padding: 10,
+        width: 100,
+        borderRadius: 10,
+        textAlign: 'center',
     },
     header: {
         fontFamily: commonStyles.fontFamily,
@@ -21,29 +35,30 @@ const styles = StyleSheet.create({
         color: commonStyles.colors.secondary,
         textAlign: 'center',
         padding: 15,
-        fontSize: 15,
+        fontSize: 18,
     },
     rodape: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
+        borderTopColor: commonStyles.colors.borderLine,
+        borderTopWidth: 0.7,
     },
     input: {
         fontFamily: commonStyles.fontFamily,
-        width: '90%',
         height: 40,
         marginTop: 10,
         marginLeft: 10,
-        backgroundColor: 'white',
+        marginRight: 10,
+        backgroundColor: commonStyles.colors.white,
         borderWidth: 1,
-        borderColor: '#e3e3e3',
+        borderColor: commonStyles.colors.borderLine,
         borderRadius: 6,
     },
     date: {
         fontFamily: commonStyles.fontFamily,
-        fontSize: 20,
-        marginLeft: 10,
-        marginTop: 10,
+        fontSize: 25,
         textAlign: 'center',
+        paddingVertical: 25,
     },
 })
 
