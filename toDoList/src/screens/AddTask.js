@@ -14,6 +14,7 @@ import {
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import styles from './addTaskStyles'
+import {getStringDeDataPtBrSemHoras} from '../UtilString'
 import DatePicker from '../componentes/DatePicker'
 
 const initialState = {desc: '', date: new Date() }
@@ -54,7 +55,7 @@ export default class AddTask extends Component {
             datePicker = (
                 <TouchableOpacity onPress={this.handleDateAndroidChanged}>
                     <Text style={styles.date}>
-                        {moment(this.state.date).format('ddd, D [de] MMMM [de] YYYY')}
+                        {getStringDeDataPtBrSemHoras(this.state.date)}
                     </Text>
                 </TouchableOpacity>
             )

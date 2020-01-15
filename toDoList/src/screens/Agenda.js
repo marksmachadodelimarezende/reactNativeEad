@@ -10,7 +10,11 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../commonStyles'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
+import AgendaBottomTabs from '../componentes/AgendaBottomTabs'
+import {getStringDeDataPtBrSemHoras,} from '../UtilString'
+import {getMapToggleTask} from '../functions'
 
+const nameAsyncStorageItem = 'toDoListMarks';
 export default class Agenda extends Component {
     state = {
         tasks: [],
@@ -38,7 +42,7 @@ export default class Agenda extends Component {
         }
 
         this.setState({ visibleTasks })
-        AsyncStorage.setItem('toDoListMarks', JSON.stringify(this.state.tasks))
+        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state.tasks))
     }
 
     toggleFilter = ()=> {
@@ -50,19 +54,13 @@ export default class Agenda extends Component {
     //Esta funcao componentDidMount faz parte do ciclo de vida do APP no react-native.
     //Ela é acionada assim que o APP é montado, finalizado parte de renderizacao de componentes.
     componentDidMount = async () => {
-        const data = await AsyncStorage.getItem('toDoListMarks')
+        const data = await AsyncStorage.getItem(nameAsyncStorageItem)
         const tasks = JSON.parse(data) || []
         this.setState({ tasks }, this.filterTasks)        
     }
 
     toggleTask = id => {
-        const tasks = this.state.tasks.map(task => {
-            if(task.id === id) {
-                task = {...task}
-                task.doneAt = task.doneAt ? null : new Date()
-            }
-            return task
-        })
+        const tasks = this.state.tasks.map(getMapToggleTask)
         this.setState({ tasks }, this.filterTasks)
     }
 
@@ -77,17 +75,20 @@ export default class Agenda extends Component {
                 <AddTask isVisible={this.state.showModalAddTask} onSave={this.addTask}
                     onCancel={() => {this.setState( {showModalAddTask: false })}} />
                 <ImageBackground source={todayImage} style={styles.backgroud}>
+                    
                     <View style={styles.iconBar}>
                         <Text style={styles.iconBarText}>
                             {this.state.showDoneTasks ? '' : 'Pendentes'} 
                         </Text>
                     </View>
+                    
                     <View style={styles.titleBar}>
                         <Text style={styles.title}>Hoje</Text>
                         <Text style={styles.subtitle}>
-                            {moment().locale('pt-br').format('ddd, D [de] MMMM [de] YYYY')}
+                            {getStringDeDataPtBrSemHoras(new Date())}
                         </Text>
                     </View>
+
                 </ImageBackground>
                 <View style={styles.tasksContainer}>
                     <FlatList data={this.state.visibleTasks} 

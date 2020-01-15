@@ -1,14 +1,16 @@
 import React from 'react'
-import {Text, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import {Text, View, TouchableWithoutFeedback, TouchableOpacity, Alert } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import Swipeable from 'react-native-swipeable'
 import styles from './taskStyles'
+import {isDataMenorQueHoje, isDataPreenchida, isDataNula} from '../UtilDate'
+import {getStringDeDataPtBrSemHoras,} from '../UtilString'
 
 export default props => {
     /*let check = null
-    if(props.doneAt !== null){
+    if(isDataPreenchida(props.doneAt)){
         check = (
             <View style={styles.done}>
                 <Icon name='check' size={20} color={styles.iconColor.color} />
@@ -18,28 +20,24 @@ export default props => {
         check = (<View style={styles.pending}></View>)
     }*/
 
-    let styleDate = null
-    let iconLeftDate = null
-    if(props.doneAt !== null){
-        styleDate = styles.date
-        iconLeftDate = (
-            <View style={styles.done}>
-                <Icon name='check' size={12} color={'green'} />
-            </View>
-        )
-    } else {
-        const dataAtual = new Date();
-        const fontColorLast = moment(props.estimateAt).toDate() < dataAtual ? styles.dateLastColor : null
-        const paddingHorizontal = moment(props.estimateAt).toDate() < dataAtual ?  styles.date.paddingHorizontal : 0
-        iconLeftDate = moment(props.estimateAt).toDate() < dataAtual ? (
+    let descStyle = isDataPreenchida(props.doneAt) ? { textDecorationLine: 'line-through'} : {}
+    let styleDate = styles.date
+    let iconLeftDate = (
+        <View style={styles.done}>
+            <Icon name='check' size={12} color={'green'} />
+        </View>
+    );
+
+    if(isDataNula(props.doneAt)){
+        const fontColorLast = isDataMenorQueHoje(props.estimateAt) ? styles.dateLastColor : null
+        const paddingHorizontal = isDataMenorQueHoje(props.estimateAt) ?  styles.date.paddingHorizontal : 0
+        styleDate = [styleDate, {paddingHorizontal}, fontColorLast];
+        iconLeftDate = isDataMenorQueHoje(props.estimateAt) ? (
             <View style={[styles.done, {backgroundColor: 'transparent',}]}>
                 <Icon name='clock-o' size={12} color={'red'} />
             </View> 
-        ) : false
-        styleDate = [styles.date, {paddingHorizontal}, fontColorLast]
+        ) : false;
     }
-
-    const descStyle = props.doneAt !== null ? { textDecorationLine: 'line-through'} : {}
 
     /* //Codigo original
     const leftContent = (
@@ -52,7 +50,7 @@ export default props => {
     const leftButtons = [
         <TouchableOpacity style={[styles.checkLeftContent]}
             onPress={() => props.onToggleTask(props.id)}>
-                <Icon name={props.doneAt === null ? 'check' : 'minus-circle'} size={30} color='#FFF'/>
+                <Icon name={isDataNula(props.doneAt) ? 'check' : 'minus-circle'} size={30} color='#FFF'/>
         </TouchableOpacity>,
     ]
 
@@ -78,7 +76,7 @@ export default props => {
                     <View style={styles.checkContainer}>
                         {iconLeftDate}
                         <Text style={styleDate}>
-                            {moment(props.estimateAt).locale('pt-br').format('ddd, D [de] MMMM [/] YYYY')}
+                            {getStringDeDataPtBrSemHoras(props.estimateAt)}
                         </Text>
                     </View>             
                 </View>

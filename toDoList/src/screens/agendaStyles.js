@@ -15,16 +15,16 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.secondary,
-        fontSize: 50,
+        fontSize: 40,
         marginLeft: 20,
-        marginBottom: 10,
+        //marginBottom: 5,
     },
     subtitle: {
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.secondary,
         fontSize: 20,
         marginLeft: 20,
-        marginBottom: 30,
+        marginBottom: 15,
     },
     tasksContainer: {
         flex: 9,
