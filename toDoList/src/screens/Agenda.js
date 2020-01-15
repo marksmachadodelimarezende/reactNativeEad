@@ -10,7 +10,6 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../commonStyles'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
-import AgendaBottomTabs from '../componentes/AgendaBottomTabs'
 import {getStringDeDataPtBrSemHoras,} from '../UtilString'
 import {getMapToggleTask} from '../functions'
 
