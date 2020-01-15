@@ -75,19 +75,17 @@ export default class Agenda extends Component {
                     onCancel={() => {this.setState( {showModalAddTask: false })}} />
                 <ImageBackground source={todayImage} style={styles.backgroud}>
                     
-                    <View style={styles.iconBar}>
-                        <Text style={styles.iconBarText}>
-                            {this.state.showDoneTasks ? '' : 'Pendentes'} 
-                        </Text>
-                    </View>
-                    
                     <View style={styles.titleBar}>
                         <Text style={styles.title}>Hoje</Text>
-                        <Text style={styles.subtitle}>
-                            {getStringDeDataPtBrSemHoras(new Date())}
-                        </Text>
+                        <View style={styles.iconBar}>
+                            <Text style={styles.subtitle}>
+                                {getStringDeDataPtBrSemHoras(new Date())}
+                            </Text>
+                            <Text style={styles.iconBarText}>
+                                {this.state.showDoneTasks ? '' : 'Pendentes'} 
+                            </Text>
+                        </View>
                     </View>
-
                 </ImageBackground>
                 <View style={styles.tasksContainer}>
                     <FlatList data={this.state.visibleTasks} 
