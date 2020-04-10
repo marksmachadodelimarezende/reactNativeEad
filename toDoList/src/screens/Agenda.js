@@ -11,7 +11,7 @@ import commonStyles from '../commonStyles'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
 import {getStringDeDataPtBrSemHoras,} from '../UtilString'
-import {getMapToggleTask} from '../functions'
+import {getMapToggleTask, ordenarTasks} from '../functions'
 
 const nameAsyncStorageItem = 'toDoListMarks';
 export default class Agenda extends Component {
@@ -24,24 +24,24 @@ export default class Agenda extends Component {
     }
 
     addTask = task => {
-          const tasks = [...this.state.tasks]
+        let tasks = [...this.state.tasks]
         tasks.push({
             id: Math.random(), desc: task.desc, estimateAt: task.date, doneAt: null
-        })
+        });
         this.setState({ tasks, showModalAddTask: false }, this.filterTasks)
     }
 
     filterTasks = () => {
         let visibleTasks = null
         if (this.state.showDoneTasks) {
-            visibleTasks = [...this.state.tasks]
+            visibleTasks = [...this.state.tasks].sort(ordenarTasks);
         } else {
             const pending = task => task.doneAt === null
-            visibleTasks = this.state.tasks.filter(pending)
+            visibleTasks = this.state.tasks.filter(pending).sort(ordenarTasks);
         }
 
-        this.setState({ visibleTasks })
-        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state.tasks))
+        this.setState({ visibleTasks });
+        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state.tasks));
     }
 
     toggleFilter = ()=> {
@@ -59,7 +59,7 @@ export default class Agenda extends Component {
     }
 
     toggleTask = id => {
-        const tasks = this.state.tasks.map(getMapToggleTask)
+        const tasks = this.state.tasks.map(task => getMapToggleTask(task, id))
         this.setState({ tasks }, this.filterTasks)
     }
 
@@ -73,8 +73,7 @@ export default class Agenda extends Component {
             <View style={styles.container}>
                 <AddTask isVisible={this.state.showModalAddTask} onSave={this.addTask}
                     onCancel={() => {this.setState( {showModalAddTask: false })}} />
-                <ImageBackground source={todayImage} style={styles.backgroud}>
-                    
+                <ImageBackground source={todayImage} style={styles.backgroud}>  
                     <View style={styles.titleBar}>
                         <Text style={styles.title}>Hoje</Text>
                         <View style={styles.iconBar}>

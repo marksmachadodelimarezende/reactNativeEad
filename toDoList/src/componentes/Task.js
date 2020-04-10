@@ -62,8 +62,8 @@ export default props => {
     ]
 
     return (
-        <Swipeable  leftActionActivationDistance={150} onLeftActionActivate ={() => props.onToggleTask(props.id)} leftButtons ={leftButtons}
-                    rightActionActivationDistance={150} onRightActionActivate={() => props.onDelete(props.id)} rightButtons={rightButtons}
+        <Swipeable  leftActionActivationDistance={120} onLeftActionActivate ={() => props.onToggleTask(props.id)} leftButtons ={leftButtons}
+                    rightActionActivationDistance={120} onRightActionActivate={() => props.onDelete(props.id)} rightButtons={rightButtons}
                     >
             <View style={styles.container}>
                 {/*<TouchableWithoutFeedback onPress={() => props.onToggleTask(props.id)}>

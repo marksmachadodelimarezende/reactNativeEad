@@ -4,7 +4,7 @@ import 'moment/locale/pt-br';
 function getDataSemHoras(data) {
     if(!!data){
         const arrayDate = moment(data).locale('pt-br').format('DD[/]MM[/]YYYY').split('/');
-        return new Date(arrayDate[1], arrayDate[0], arrayDate[2]);
+        return new Date(arrayDate[2], arrayDate[1], arrayDate[0]);
     } else {
         return null;
     }
