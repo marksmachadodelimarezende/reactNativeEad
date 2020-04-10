@@ -5,6 +5,7 @@ function getStringDeDataPtBrSemHoras(data) {
     return moment(data).locale('pt-br').format('ddd, D [de] MMMM [de] YYYY')
 }
 
+
 export {
     getStringDeDataPtBrSemHoras,
 }
