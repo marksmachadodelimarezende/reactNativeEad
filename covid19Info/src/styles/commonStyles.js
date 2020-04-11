@@ -1,3 +1,5 @@
+import {Platform} from 'react-native'
+
 export default {
     fontFamily: 'Arial',
     colors: {
@@ -13,5 +15,17 @@ export default {
     },
     backgrouds: {
         transparenteEscurecido: 'rgba(0,0,0,0.7)',
+    },
+    padding: {
+        global: 10,
+        horizontal: 10,
+        vertical: 20,
+        rigth: 10,
+        left: 10,
+    },
+    margim: {
+        titleTop: 20,
+        titleTop: 5,
+        topApp: Platform.OS === 'ios' ? 20 : 5,
     },
 }

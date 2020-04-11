@@ -1,4 +1,4 @@
-import {StyleSheet, Platform} from 'react-native'
+import {StyleSheet} from 'react-native'
 import commonStyles from './commonStyles'
 
 const homeStyles = StyleSheet.create({
@@ -12,8 +12,16 @@ const homeStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
-        marginTop: Platform.OS === 'ios' ? 20 : 5,
-        paddingHorizontal: 20,
+        marginTop: commonStyles.margim.topApp,
+        paddingHorizontal: commonStyles.padding.horizontal,
+    },
+    titleBarRow: {
+        flexDirection: 'row',
+        alignItems: 'flex-end',
+        justifyContent: 'space-between',
+        paddingHorizontal: commonStyles.padding.horizontal,
+        paddingBottom: 5,
+        minHeight: 50,
     },
     title: {
         fontFamily: commonStyles.fontFamily,
@@ -25,29 +33,9 @@ const homeStyles = StyleSheet.create({
         color: commonStyles.colors.secondary,
         fontSize: 20,
     },
-    iconBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 5,
+    body:{
+        flex: 9,
+        backgroundColor: commonStyles.backgrouds.transparenteEscurecido,
     },
-    iconBarText: {
-        fontFamily: commonStyles.fontFamily,
-        color: commonStyles.colors.secondary,
-        fontSize: 20,
-        fontStyle: 'italic',
-        paddingEnd: 15,
-    },
-    actionButtonIcon: {
-        fontSize: 25,
-        height: 22,
-        backgroundColor: commonStyles.colors.transparent,
-        color: 'black',
-      },
-    actionButtonItemsIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-      },
 })
-
 export default homeStyles

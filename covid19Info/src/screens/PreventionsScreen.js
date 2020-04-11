@@ -16,13 +16,13 @@ class HomeScreen extends Component {
                         <Text style={homeStyles.title}>Covid-19</Text>
                     </View>
                     <View style={homeStyles.titleBarRow}>
-                        <Text style={homeStyles.subtitle}>Informações</Text>
+                        <Text style={homeStyles.subtitle}>Prevenção</Text>
                         <Text style={homeStyles.subtitle}>{getStringDeDataPtBrSemHoras()}</Text>
                     </View>
                     <View style={homeStyles.body}> 
                         <SafeAreaView>
                             <ScrollView>
-                                <AboutCovid/>
+                                <Preventions/>
                             </ScrollView>
                         </SafeAreaView>
                     </View>
