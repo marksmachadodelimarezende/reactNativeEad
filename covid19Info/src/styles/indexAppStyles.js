@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native'
 import commonStyles from './commonStyles'
 
-const homeStyles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
@@ -38,4 +38,4 @@ const homeStyles = StyleSheet.create({
         backgroundColor: commonStyles.backgrouds.transparenteEscurecido,
     },
 })
-export default homeStyles
+export default styles

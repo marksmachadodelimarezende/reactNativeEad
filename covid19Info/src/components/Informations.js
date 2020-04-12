@@ -1,13 +1,10 @@
-import React, { Component} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import React, {Component} from 'react'
+import {View, Text} from 'react-native'
 import functions from '../global/functions';
+import informationStyles from '../styles/informationStyles'
 import {getStringDeDataHoraPtBr} from '../global/UtilString'
 
-class SettingsScreen extends Component {
+class Informations extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -25,26 +22,20 @@ class SettingsScreen extends Component {
 
     render(){
         return(
-            <View style={styles.container}>
-                <Text>Settings Screen Navigation</Text>
-                <Text>Data atualização: {getStringDeDataHoraPtBr(this.state.dataDados)}</Text>
-                <Text> Casos Confirmados:&nbsp;
+            <View style={informationStyles.container}>
+                <Text style={informationStyles.subtitle}>
+                    Data atualização: {getStringDeDataHoraPtBr(this.state.dataDados)}
+                </Text>
+                <Text style={informationStyles.subtitle}> 
+                    Casos Confirmados:&nbsp;
                     {functions.getTotalCasosAtivos(this.state.dataSource)}
                 </Text>
-                <Text> Óbitos:&nbsp;
+                <Text style={informationStyles.subtitle}> 
+                    Óbitos:&nbsp;
                     {functions.getTotalObitos(this.state.dataSource)}
                 </Text>
             </View>
-        );
+        )
     }
 }
-
-export default SettingsScreen;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    }
-})
+export default Informations

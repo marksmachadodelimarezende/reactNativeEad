@@ -1,17 +1,17 @@
 import React from 'react'
-import HomeScreen from './HomeScreen'
+import AboutScreen from './AboutScreen'
 import PreventionsScreen from './PreventionsScreen'
-import SettingsScreen from './SettingsScreen'
+import InformationScreen from './InformationScreen'
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default createMaterialBottomTabNavigator({
-  Home: {
-    screen: HomeScreen,
+  About: {
+    screen: AboutScreen,
     navigationOptions: {
-      tabBarLabel: 'Início',
+      tabBarLabel: 'Sobre',
       tabBarIcon: ({ tintColor })=>(
-      <Icon name='home' size={24} color={tintColor} />
+      <Icon name='info' size={24} color={tintColor} />
       )
     }
   },
@@ -24,18 +24,18 @@ export default createMaterialBottomTabNavigator({
       )
     }
   },
-  Settings: {
-    screen: SettingsScreen,
+  Information: {
+    screen: InformationScreen,
     navigationOptions: {
-      tabBarLabel: 'Configurações',
+      tabBarLabel: 'Informações',
       tabBarIcon: ({ tintColor })=>(
-      <Icon name='cog' size={24} color={tintColor} />
+      <Icon name='server' size={24} color={tintColor} />
       )
     }
   },
 },{
   initialRouteName: 'Preventions',
-  //order: ['Settings', 'Home'],
+  order: ['Information', 'Preventions', 'About'],
   activeColor : 'blue',
   inactiveColor: 'green',
   shifting: false,
