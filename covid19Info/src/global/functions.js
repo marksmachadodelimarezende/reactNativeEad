@@ -13,6 +13,7 @@ getTotalObitos = (props) => {
 }
 
 getDataAtualizacao = () => moment('2020-04-11 18:00');
+
 getJsonDataSource = () => {
     return [
         {

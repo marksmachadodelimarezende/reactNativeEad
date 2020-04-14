@@ -39,6 +39,11 @@ export default props => {
                         </ScrollView>
                     </SafeAreaView>
                 </View>
+                <View style={styles.rodape}>
+                    <Text style={styles.rodapeText}>
+                        Fonte: https://covid.saude.gov.br/
+                    </Text>
+                </View>
             </ImageBackground>
         </View>
     )
