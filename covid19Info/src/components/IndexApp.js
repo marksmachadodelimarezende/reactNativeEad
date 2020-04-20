@@ -1,7 +1,7 @@
 import React from 'react'
 import {View, Text, ImageBackground, SafeAreaView, ScrollView} from 'react-native'
 import styles from '../styles/indexAppStyles'
-import {getStringDeDataPtBrSemHoras} from '../global/UtilString'
+import {getStringDateFormat} from '../global/UtilString'
 import backgroudTop from '../../assets/images/backgroudTop.jpg'
 import AboutCovid from './AboutCovid19'
 import Preventions from './Preventions'
@@ -30,7 +30,7 @@ export default props => {
                 </View>
                 <View style={styles.titleBarRow}>
                     <Text style={styles.subtitle}>{props.titleView}</Text>
-                    <Text style={styles.subtitle}>{getStringDeDataPtBrSemHoras()}</Text>
+                    <Text style={styles.subtitle}>{getStringDateFormat(null, 'D [de] MMMM [de] YYYY')}</Text>
                 </View>
                 <View style={styles.body}> 
                     <SafeAreaView>
