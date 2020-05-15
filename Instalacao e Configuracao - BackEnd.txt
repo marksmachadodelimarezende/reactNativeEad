@@ -1,0 +1,32 @@
+Instalacoes NPM
+* Parte de WEBSERVICE
+- express -> ajuda na construção do webservice
+- body-parser -> responsável por interpretar o conteudo do body de uma requisição
+- cors - e necessario para permitir o webservice de forma publica
+- consign
+
+--->>> npm install --save express body-parser cors consign
+
+* Parte de segurança
+- bcrypt-nodejs 
+- jwt-simple 
+- passport 
+- passport-jwt
+
+--->>> npm install --save bcrypt-nodejs jwt-simple passport passport-jwt
+
+* Parte de banco de dados
+- knex
+- pg
+
+--->>> npm install --save knex pg
+
+* Parte acessoria
+- moment 
+
+--->>> npm install --save moment
+
+* Parte de inicializacao da aplicação
+- nodemon - apenas modo dev
+
+--->>> npm install --save-dev nodemon
