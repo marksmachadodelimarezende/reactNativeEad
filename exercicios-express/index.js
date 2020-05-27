@@ -1,8 +1,17 @@
 const express = require('express');
 const app = express();
-const saudacao = require('./src/saudacaoMid')
+const bodyParser = require('body-parser');
+const saudacao = require('./api/saudacaoMid')
+const usuarioApi = require('./api/usuario')
 
+app.use(bodyParser.text())
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(saudacao('Marks')) //Pode ser invocada funcoes de modulos. As mesmas devem retornar funcoes middleware
+
+//Usuario
+app.post('/usuario', usuarioApi.salvar)
+app.get('/usuario', usuarioApi.obter)
 
 app.post('/post', (req, res, next) => {
     console.log('Metodo POST acessado!')
@@ -10,13 +19,14 @@ app.post('/post', (req, res, next) => {
 })
 
 app.post('/corpo', (req, res) => {
-    let corpoBody = ''
+    /*let corpoBody = ''
     req.on('data', function(parte){
         corpoBody += parte
     })
     req.on('end', function(){
         res.send(corpoBody)
-    })
+    })*/
+    res.send(req.body)
 })
 
 app.get('/clientes/relatorio', (req, res) => {
