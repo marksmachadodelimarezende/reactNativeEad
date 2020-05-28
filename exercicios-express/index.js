@@ -13,6 +13,10 @@ app.use(saudacao('Marks')) //Pode ser invocada funcoes de modulos. As mesmas dev
 app.post('/usuario', usuarioApi.salvar)
 app.get('/usuario', usuarioApi.obter)
 
+//Produto
+require('./api/produto')(app, 'com parametro')
+
+
 app.post('/post', (req, res, next) => {
     console.log('Metodo POST acessado!')
     next()

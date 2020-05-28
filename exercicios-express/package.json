@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon",
-    "production": "pm2 start index.js --name backend-express",
-    "stop-production": "pm2 kill"
+    "production": "pm2 start index.js --name backend-express"
   },
   "keywords": [],
   "author": "",

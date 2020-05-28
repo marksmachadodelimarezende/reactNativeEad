@@ -3,7 +3,7 @@ function salvar(req, res) {
 }
 
 function obter(req, res) {
-    res.send('Obter > Salvar');
+    res.send('Usuario > Obter');
 }
 
 module.exports = { salvar, obter }
