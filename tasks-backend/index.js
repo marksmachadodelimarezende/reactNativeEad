@@ -6,6 +6,7 @@ const consign = require('consign')
 const settings = require('./config/settings')
 
 consign()
+    .include('./config/passport.js')
     .then('./config/middlewares.js')
     .then('./api')
     .then('./config/routes.js')
