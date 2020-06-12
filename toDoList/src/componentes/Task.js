@@ -6,7 +6,7 @@ import 'moment/locale/pt-br'
 import Swipeable from 'react-native-swipeable'
 import styles from './taskStyles'
 import {isDataMenorQueHoje, isDataPreenchida, isDataNula} from '../UtilDate'
-import {getStringDeDataPtBrSemHoras,} from '../UtilString'
+import {getStringDateFormat,} from '../UtilString'
 
 export default props => {
     /*let check = null
@@ -76,7 +76,7 @@ export default props => {
                     <View style={styles.checkContainer}>
                         {iconLeftDate}
                         <Text style={styleDate}>
-                            {getStringDeDataPtBrSemHoras(props.estimateAt)}
+                            {getStringDateFormat(props.estimateAt, 'ddd[,] D [de] MMMM [de] YYYY')}
                         </Text>
                     </View>             
                 </View>

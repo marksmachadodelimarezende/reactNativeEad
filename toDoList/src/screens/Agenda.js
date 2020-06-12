@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Text, View, ImageBackground, FlatList, TouchableOpacity, AsyncStorage, Alert } from 'react-native'
+import {Text, View, ImageBackground, FlatList, TouchableOpacity, Alert } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment'
 import 'moment/locale/pt-br'
 import todayImage from '../../assets/imgs/today.jpg'
@@ -10,17 +11,20 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../commonStyles'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
-import {getStringDeDataPtBrSemHoras,} from '../UtilString'
+import {getStringDateFormat} from '../UtilString'
 import {getMapToggleTask, ordenarTasks} from '../functions'
 
 const nameAsyncStorageItem = 'toDoListMarks';
+const initialState = {
+    tasks: [],
+    visibleTasks: [],
+    showDoneTasks: true,
+    showModalAddTask: false,
+}
 export default class Agenda extends Component {
-    state = {
-        tasks: [],
-        visibleTasks: [],
-        showDoneTasks: true,
-        nameIcon: this.showDoneTasks ? 'eye' : 'eye-slash',
-        showModalAddTask: false,
+    constructor(props){
+        super(props)
+        this.state = initialState
     }
 
     addTask = task => {
@@ -41,20 +45,22 @@ export default class Agenda extends Component {
         }
 
         this.setState({ visibleTasks });
-        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state.tasks));
+        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state));
     }
 
     toggleFilter = ()=> {
         //Passando a funcao como segundo parametro de this.setState(), 
         //a mesma sera acionada depois de atualizar o state
-        this.setState({ showDoneTasks: !this.state.showDoneTasks }, this.filterTasks )
+        this.setState({ 
+            showDoneTasks: !this.state.showDoneTasks
+        }, this.filterTasks )
     }
 
     //Esta funcao componentDidMount faz parte do ciclo de vida do APP no react-native.
     //Ela é acionada assim que o APP é montado, finalizado parte de renderizacao de componentes.
     componentDidMount = async () => {
         const data = await AsyncStorage.getItem(nameAsyncStorageItem)
-        const tasks = JSON.parse(data) || []
+        const tasks = JSON.parse(data) || initialState
         this.setState({ tasks }, this.filterTasks)        
     }
 
@@ -78,7 +84,7 @@ export default class Agenda extends Component {
                         <Text style={styles.title}>Hoje</Text>
                         <View style={styles.iconBar}>
                             <Text style={styles.subtitle}>
-                                {getStringDeDataPtBrSemHoras(new Date())}
+                                {getStringDateFormat(new Date(), 'ddd[,] D [de] MMMM [de] YYYY')}
                             </Text>
                             <Text style={styles.iconBarText}>
                                 {this.state.showDoneTasks ? '' : 'Pendentes'} 
