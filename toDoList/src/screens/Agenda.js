@@ -22,9 +22,8 @@ const initialState = {
     showModalAddTask: false,
 }
 export default class Agenda extends Component {
-    constructor(props){
-        super(props)
-        this.state = initialState
+    state = {
+        ...initialState
     }
 
     addTask = task => {
@@ -61,7 +60,7 @@ export default class Agenda extends Component {
     componentDidMount = async () => {
         const data = await AsyncStorage.getItem(nameAsyncStorageItem)
         const tasks = JSON.parse(data) || initialState
-        this.setState({ tasks }, this.filterTasks)        
+        this.setState(tasks, this.filterTasks)        
     }
 
     toggleTask = id => {
