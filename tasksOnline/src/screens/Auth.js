@@ -8,9 +8,9 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
-    stageNew: false
+    //stageNew: false,
 }
-
+let stateStageNew = false
 export default class Auth extends Component {
     constructor(props) {
         super(props)
@@ -19,22 +19,25 @@ export default class Auth extends Component {
         this.setName = this.setName.bind(this)
         this.setEmail = this.setEmail.bind(this)
         this.setPassword = this.setPassword.bind(this)
-        this.setconfirmPassword = this.setconfirmPassword.bind(this)
-        this.setStageNew = this.setStageNew.bind(this)
+        this.setConfirmPassword = this.setConfirmPassword.bind(this)
+        //this.setStageNew = this.setStageNew.bind(this)
     }
 
     setName = (name) => this.setState({ name })
     setEmail = (email) => this.setState({ email })
     setPassword = (password) => this.setState({ password })
-    setconfirmPassword = (confirmPassword) => this.setState({ confirmPassword })
-    setStageNew = (stageNew) => this.setState({ stageNew })
+    setConfirmPassword = (confirmPassword) => this.setState({ confirmPassword })
+    setStageNew = (stageNew) => {
+        //this.setState({ stageNew })
+        stateStageNew = stageNew
+    }
 
     checkLogin = () => {
         Keyboard.dismiss()
         console.log(this.state)
     }
 
-    getFieldName = () => this.state.stageNew &&
+    getFieldName = () => stateStageNew &&
         <TextInput placeholder='Name' value={this.state.name} style={styles.input}
             onChangeText={value => this.setName(value)}></TextInput>
 
@@ -47,11 +50,11 @@ export default class Auth extends Component {
             onChangeText={value => this.setPassword(value)} secureTextEntry={true}></TextInput>
 
 
-    getFieldConfirmPassword = () => this.state.stageNew &&
+    getFieldConfirmPassword = () => stateStageNew &&
         <TextInput placeholder='Confirm Password' value={this.state.confirmPassword} style={styles.input}
-            onChangeText={value => this.setconfirmPassword(value)} secureTextEntry={true}></TextInput>
+            onChangeText={value => this.setConfirmPassword(value)} secureTextEntry={true}></TextInput>
 
-    getLabelButtonAuth = () => this.state.stageNew ? 'Registrar' : 'Entrar'
+    getLabelButtonAuth = () => stateStageNew ? 'Registrar' : 'Entrar'
 
     getButtonAuth = () => {
         return (
@@ -62,20 +65,19 @@ export default class Auth extends Component {
             </TouchableOpacity>)
     }
 
+    getLabeSubtitle = () => stateStageNew ? 'Crie a sua conta' : 'Informe seus dados'
+
+    getSubtitle = () => (<Text style={styles.subtitle}>{this.getLabeSubtitle()}</Text>)
+
     getToggleButtonStageNew = () => {
-        const stateStageNew = !this.state.stageNew
         return (
-            <TouchableOpacity onPress={this.setState({ stageNew: stateStageNew})} style={{ padding: 20}}>
+            <TouchableOpacity onPress={this.setStageNew({ stageNew: !stateStageNew})} style={{ padding: 20}}>
                 <Text style={styles.buttonText}>
-                    {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
+                    {stateStageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                 </Text>
             </TouchableOpacity>
         )
     }
-
-    getLabeSubtitle = () => this.state.stageNew ? 'Crie a sua conta' : 'Informe seus dados'
-
-    getSubtitle = () => (<Text style={styles.subtitle}>{this.getLabeSubtitle()}</Text>)
 
     render() {
         return (
