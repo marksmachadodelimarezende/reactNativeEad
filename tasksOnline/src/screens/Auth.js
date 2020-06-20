@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
-import { ImageBackground, Text, View, TextInput, TouchableOpacity, Keyboard, Alert } from 'react-native'
+import { ImageBackground, Text, View, TouchableOpacity, Keyboard, Alert } from 'react-native'
 import styles from './authStyles'
 import LoginImage from '../../assets/imgs/login.jpg'
+import AuthInput from '../componentes/AuthInput'
+import { urlServer, showError, showSucess } from '../services/commonServices'
+import axios from 'axios'
 
 const initialState = {
     name: '',
@@ -32,33 +35,74 @@ export default class Auth extends Component {
         this.setState({ stageNew: stateStageNew })
     }
 
-    checkLogin = () => {
+    signinOrSignup = () => {
         Keyboard.dismiss()
-        console.log(this.state)
+        if (this.state.stageNew) {
+            this.signup()
+        } else {
+            this.signin()
+        }
+    }
+
+    signup = async () => {
+        try {
+            await axios.post(`${urlServer}/signup`, this.state)
+            showSucess('Usuário cadastrad com sucesso!')
+            this.setState({ ...initialState })
+        } catch (e) {
+            showError(e)
+        }
+    }
+
+    signin = async () =>{
+        try {
+            const res = await axios.post(`${urlServer}/signin`, this.state)
+            axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
+            this.props.navigation.navigate('Home')
+        }catch(e){
+            showError(e)
+        }
+    }
+
+    render() {
+        return (
+            <ImageBackground source={LoginImage} style={styles.background}>
+                <Text style={styles.title}>Tasks</Text>
+                <View style={styles.formContainer}>
+                    {this.getSubtitle()}
+                    {this.getFieldName()}
+                    {this.getFieldEmail()}
+                    {this.getFieldPassword()}
+                    {this.getFieldConfirmPassword()}
+                    {this.getButtonAuth()}
+                </View>
+                {this.getToggleButtonStageNew()}
+            </ImageBackground>
+        )
     }
 
     getFieldName = () => this.state.stageNew &&
-        <TextInput placeholder='Name' value={this.state.name} style={styles.input}
-            onChangeText={value => this.setName(value)}></TextInput>
+        <AuthInput icon='user' placeholder='Name' value={this.state.name} style={styles.input}
+            onChangeText={value => this.setName(value)}></AuthInput>
 
     getFieldEmail = () =>
-        <TextInput placeholder='E-Mail' value={this.state.email} style={styles.input}
-            onChangeText={value => this.setEmail(value)}></TextInput>
+        <AuthInput icon='at' placeholder='E-Mail' value={this.state.email} style={styles.input}
+            onChangeText={value => this.setEmail(value)}></AuthInput>
 
     getFieldPassword = () =>
-        <TextInput placeholder='Password' value={this.state.password} style={styles.input}
-            onChangeText={value => this.setPassword(value)} secureTextEntry={true}></TextInput>
+        <AuthInput icon='lock' placeholder='Password' value={this.state.password} style={styles.input}
+            onChangeText={value => this.setPassword(value)} secureTextEntry={true}></AuthInput>
 
 
     getFieldConfirmPassword = () => this.state.stageNew &&
-        <TextInput placeholder='Confirm Password' value={this.state.confirmPassword} style={styles.input}
-            onChangeText={value => this.setConfirmPassword(value)} secureTextEntry={true}></TextInput>
+        <AuthInput icon='lock' placeholder='Confirm Password' value={this.state.confirmPassword} style={styles.input}
+            onChangeText={value => this.setConfirmPassword(value)} secureTextEntry={true}></AuthInput>
 
     getLabelButtonAuth = () => this.state.stageNew ? 'Registrar' : 'Entrar'
 
     getButtonAuth = () => {
         return (
-            <TouchableOpacity onPress={this.checkLogin}>
+            <TouchableOpacity onPress={this.signinOrSignup}>
                 <View style={styles.button}>
                     <Text style={styles.buttonText}>{this.getLabelButtonAuth()}</Text>
                 </View>
@@ -71,30 +115,11 @@ export default class Auth extends Component {
 
     getToggleButtonStageNew = () => {
         return (
-            <TouchableOpacity onPress={this.setStageNew} style={{ padding: 20}}>
+            <TouchableOpacity onPress={this.setStageNew} style={{ padding: 20 }}>
                 <Text style={styles.buttonText}>
                     {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                 </Text>
             </TouchableOpacity>
-        )
-    }
-
-    render() {
-        return (
-            <ImageBackground source={LoginImage} style={styles.background}>
-                <Text style={styles.title}>
-                    Tasks
-                </Text>
-                <View style={styles.formContainer}>
-                    {this.getSubtitle()}
-                    {this.getFieldName()}
-                    {this.getFieldEmail()}
-                    {this.getFieldPassword()}
-                    {this.getFieldConfirmPassword()}
-                    {this.getButtonAuth()}
-                </View>
-                {this.getToggleButtonStageNew()}
-            </ImageBackground>
         )
     }
 }

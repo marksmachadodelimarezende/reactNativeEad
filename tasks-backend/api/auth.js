@@ -9,7 +9,7 @@ module.exports = app => {
         }
 
         const user = await app.db('users')
-            .where({ email: req.body.email })
+            .whereRaw("lower(email) = lower(?)", req.body.email )
             .first()
 
         if (user) {
