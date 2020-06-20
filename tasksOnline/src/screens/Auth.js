@@ -8,7 +8,7 @@ const initialState = {
     email: '',
     password: '',
     confirmPassword: '',
-    //stageNew: false,
+    stageNew: false,
 }
 let stateStageNew = false
 export default class Auth extends Component {
@@ -20,16 +20,16 @@ export default class Auth extends Component {
         this.setEmail = this.setEmail.bind(this)
         this.setPassword = this.setPassword.bind(this)
         this.setConfirmPassword = this.setConfirmPassword.bind(this)
-        //this.setStageNew = this.setStageNew.bind(this)
+        this.setStageNew = this.setStageNew.bind(this)
     }
 
     setName = (name) => this.setState({ name })
     setEmail = (email) => this.setState({ email })
     setPassword = (password) => this.setState({ password })
     setConfirmPassword = (confirmPassword) => this.setState({ confirmPassword })
-    setStageNew = (stageNew) => {
-        //this.setState({ stageNew })
-        stateStageNew = stageNew
+    setStageNew = () => {
+        stateStageNew = !stateStageNew
+        this.setState({ stageNew: stateStageNew })
     }
 
     checkLogin = () => {
@@ -37,7 +37,7 @@ export default class Auth extends Component {
         console.log(this.state)
     }
 
-    getFieldName = () => stateStageNew &&
+    getFieldName = () => this.state.stageNew &&
         <TextInput placeholder='Name' value={this.state.name} style={styles.input}
             onChangeText={value => this.setName(value)}></TextInput>
 
@@ -50,11 +50,11 @@ export default class Auth extends Component {
             onChangeText={value => this.setPassword(value)} secureTextEntry={true}></TextInput>
 
 
-    getFieldConfirmPassword = () => stateStageNew &&
+    getFieldConfirmPassword = () => this.state.stageNew &&
         <TextInput placeholder='Confirm Password' value={this.state.confirmPassword} style={styles.input}
             onChangeText={value => this.setConfirmPassword(value)} secureTextEntry={true}></TextInput>
 
-    getLabelButtonAuth = () => stateStageNew ? 'Registrar' : 'Entrar'
+    getLabelButtonAuth = () => this.state.stageNew ? 'Registrar' : 'Entrar'
 
     getButtonAuth = () => {
         return (
@@ -65,15 +65,15 @@ export default class Auth extends Component {
             </TouchableOpacity>)
     }
 
-    getLabeSubtitle = () => stateStageNew ? 'Crie a sua conta' : 'Informe seus dados'
+    getLabeSubtitle = () => this.state.stageNew ? 'Crie a sua conta' : 'Informe seus dados'
 
     getSubtitle = () => (<Text style={styles.subtitle}>{this.getLabeSubtitle()}</Text>)
 
     getToggleButtonStageNew = () => {
         return (
-            <TouchableOpacity onPress={this.setStageNew({ stageNew: !stateStageNew})} style={{ padding: 20}}>
+            <TouchableOpacity onPress={this.setStageNew} style={{ padding: 20}}>
                 <Text style={styles.buttonText}>
-                    {stateStageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
+                    {this.state.stageNew ? 'Já possui conta?' : 'Ainda não possui conta?'}
                 </Text>
             </TouchableOpacity>
         )
