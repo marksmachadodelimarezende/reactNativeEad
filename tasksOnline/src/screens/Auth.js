@@ -47,7 +47,7 @@ export default class Auth extends Component {
     signup = async () => {
         try {
             await axios.post(`${urlServer}/signup`, this.state)
-            showSucess('Usuário cadastrad com sucesso!')
+            showSucess('Usuário cadastrado com sucesso!')
             this.setState({ ...initialState })
         } catch (e) {
             showError(e)
@@ -65,6 +65,15 @@ export default class Auth extends Component {
     }
 
     render() {
+        let validacoesForm = []
+        validacoesForm.push(this.state.email && this.state.email.includes('@') && this.state.email.includes('.'))
+        validacoesForm.push(this.state.password && this.state.password.length >= 4)
+        if(this.state.stageNew){
+            validacoesForm.push(this.state.name && this.state.name.trim().length >= 3)
+            validacoesForm.push(this.state.confirmPassword === this.state.password)
+        }
+        const formValid = validacoesForm.reduce((t, a) => t && a)
+
         return (
             <ImageBackground source={LoginImage} style={styles.background}>
                 <Text style={styles.title}>Tasks</Text>
@@ -74,7 +83,7 @@ export default class Auth extends Component {
                     {this.getFieldEmail()}
                     {this.getFieldPassword()}
                     {this.getFieldConfirmPassword()}
-                    {this.getButtonAuth()}
+                    {this.getButtonAuth(formValid)}
                 </View>
                 {this.getToggleButtonStageNew()}
             </ImageBackground>
@@ -100,10 +109,10 @@ export default class Auth extends Component {
 
     getLabelButtonAuth = () => this.state.stageNew ? 'Registrar' : 'Entrar'
 
-    getButtonAuth = () => {
+    getButtonAuth = (formValid) => {
         return (
-            <TouchableOpacity onPress={this.signinOrSignup}>
-                <View style={styles.button}>
+            <TouchableOpacity onPress={this.signinOrSignup} disabled={!formValid}>
+                <View style={[styles.button, formValid ? {} : { backgroundColor: '#AAA' }]}>
                     <Text style={styles.buttonText}>{this.getLabelButtonAuth()}</Text>
                 </View>
             </TouchableOpacity>)
