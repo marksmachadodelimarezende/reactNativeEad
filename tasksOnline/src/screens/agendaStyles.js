@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: Platform.OS === 'ios' ? 20 : 5,
         paddingHorizontal: 20,
-        minHeight: 40,
+        paddingBottom: 5,
+        minHeight: 50,
     },
     title: {
         fontFamily: commonStyles.fontFamily,

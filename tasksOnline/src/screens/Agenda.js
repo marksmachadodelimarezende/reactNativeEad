@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ImageBackground, FlatList, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, ImageBackground, FlatList, TouchableOpacity, Alert, Keyboard } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -29,12 +29,14 @@ export default class Agenda extends Component {
     }
 
     addTask = async task => {
+        Keyboard.dismiss();
         try{
             await axios.post(`${urlServer}/tasks`, {
                 desc: task.desc, 
                 estimateAt: task.date 
             })
             this.setState({ showModalAddTask: false }, this.filterTasks)
+            this.loadTasks()
         }catch(e){
             showError(e)
         }
@@ -59,6 +61,7 @@ export default class Agenda extends Component {
         this.setState({
             showDoneTasks: !this.state.showDoneTasks
         }, this.filterTasks)
+        this.loadTasks()
     }
 
     //Esta funcao componentDidMount faz parte do ciclo de vida do APP no react-native.
@@ -71,13 +74,27 @@ export default class Agenda extends Component {
     }
 
     toggleTask = id => {
-        const tasks = this.state.tasks.map(task => getMapToggleTask(task, id))
-        this.setState({ tasks }, this.filterTasks)
+        // const tasks = this.state.tasks.map(task => getMapToggleTask(task, id))
+        // this.setState({ tasks }, this.filterTasks)
+        //console.log('Toogle tasks', id)
+        try {
+            axios.put(`${urlServer}/tasks/${id}/toogle`)
+            this.loadTasks()
+        }catch(e){
+            showError(e)
+        }
+
     }
 
     deleteTask = id => {
-        const tasks = this.state.tasks.filter(task => task.id !== id)
-        this.setState({ tasks }, this.filterTasks)
+        // const tasks = this.state.tasks.filter(task => task.id !== id)
+        // this.setState({ tasks }, this.filterTasks)
+        try {
+            axios.delete(`${urlServer}/tasks/${id}`)
+            this.loadTasks()
+        }catch(e){
+            showError(e)
+        }
     }
 
     loadTasks = async () => {
