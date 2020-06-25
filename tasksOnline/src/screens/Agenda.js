@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text, View, ImageBackground, FlatList, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, ImageBackground, FlatList, TouchableOpacity, Alert } from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment'
 import 'moment/locale/pt-br'
@@ -11,8 +11,10 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import commonStyles from '../commonStyles'
 import ActionButton from 'react-native-action-button'
 import AddTask from './AddTask'
-import {getStringDateFormat} from '../UtilString'
-import {getMapToggleTask, ordenarTasks} from '../functions'
+import { getStringDateFormat } from '../UtilString'
+import { getMapToggleTask, ordenarTasks } from '../functions'
+import axios from 'axios'
+import { urlServer, showError, showSucess } from '../services/commonServices'
 
 const nameAsyncStorageItem = 'toDoListMarks';
 const initialState = {
@@ -26,12 +28,16 @@ export default class Agenda extends Component {
         ...initialState
     }
 
-    addTask = task => {
-        let tasks = [...this.state.tasks]
-        tasks.push({
-            id: Math.random(), desc: task.desc, estimateAt: task.date, doneAt: null
-        });
-        this.setState({ tasks, showModalAddTask: false }, this.filterTasks)
+    addTask = async task => {
+        try{
+            await axios.post(`${urlServer}/tasks`, {
+                desc: task.desc, 
+                estimateAt: task.date 
+            })
+            this.setState({ showModalAddTask: false }, this.filterTasks)
+        }catch(e){
+            showError(e)
+        }
     }
 
     filterTasks = () => {
@@ -44,15 +50,15 @@ export default class Agenda extends Component {
         }
 
         this.setState({ visibleTasks });
-        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify(this.state));
+        AsyncStorage.setItem(nameAsyncStorageItem, JSON.stringify({ showDoneTasks: this.state.showDoneTasks }));
     }
 
-    toggleFilter = ()=> {
+    toggleFilter = () => {
         //Passando a funcao como segundo parametro de this.setState(), 
         //a mesma sera acionada depois de atualizar o state
-        this.setState({ 
+        this.setState({
             showDoneTasks: !this.state.showDoneTasks
-        }, this.filterTasks )
+        }, this.filterTasks)
     }
 
     //Esta funcao componentDidMount faz parte do ciclo de vida do APP no react-native.
@@ -60,7 +66,8 @@ export default class Agenda extends Component {
     componentDidMount = async () => {
         const data = await AsyncStorage.getItem(nameAsyncStorageItem)
         const tasks = JSON.parse(data) || initialState
-        this.setState(tasks, this.filterTasks)        
+        this.setState({ showDoneTasks: tasks.showDoneTasks }, this.filterTasks)
+        this.loadTasks()
     }
 
     toggleTask = id => {
@@ -73,12 +80,23 @@ export default class Agenda extends Component {
         this.setState({ tasks }, this.filterTasks)
     }
 
+    loadTasks = async () => {
+        try {
+            const maxDate = moment().endOf('day').format('YYYY-MM-DD 23:59:59')
+            const res = await axios.get(`${urlServer}/tasks?date=${maxDate}`)
+            console.log(res.data)
+            this.setState({ tasks: res.data }, this.filterTasks)
+        } catch (error) {
+            showError(error)
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <AddTask isVisible={this.state.showModalAddTask} onSave={this.addTask}
-                    onCancel={() => {this.setState( {showModalAddTask: false })}} />
-                <ImageBackground source={todayImage} style={styles.backgroud}>  
+                    onCancel={() => { this.setState({ showModalAddTask: false }) }} />
+                <ImageBackground source={todayImage} style={styles.backgroud}>
                     <View style={styles.titleBar}>
                         <Text style={styles.title}>Hoje</Text>
                         <View style={styles.iconBar}>
@@ -86,25 +104,25 @@ export default class Agenda extends Component {
                                 {getStringDateFormat(new Date(), 'ddd[,] D [de] MMMM [de] YYYY')}
                             </Text>
                             <Text style={styles.iconBarText}>
-                                {this.state.showDoneTasks ? '' : 'Pendentes'} 
+                                {this.state.showDoneTasks ? '' : 'Pendentes'}
                             </Text>
                         </View>
                     </View>
                 </ImageBackground>
                 <View style={styles.tasksContainer}>
-                    <FlatList data={this.state.visibleTasks} 
-                        keyExtractor={item => `${item.id}`} 
-                        renderItem={ ({item}) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask}></Task>}>
+                    <FlatList data={this.state.visibleTasks}
+                        keyExtractor={item => `${item.id}`}
+                        renderItem={({ item }) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask}></Task>}>
                     </FlatList>
                 </View>
-                <ActionButton buttonColor={commonStyles.colors.transparent} 
-                        renderIcon={active => <Icon name={active ? 'plus' : 'ellipsis-v'} style={styles.actionButtonIcon}/>}>
-                    <ActionButton.Item buttonColor='green' 
-                        title="Nova tarefa" 
-                        onPress={() => {this.setState( {showModalAddTask: true })}}>
+                <ActionButton buttonColor={commonStyles.colors.transparent}
+                    renderIcon={active => <Icon name={active ? 'plus' : 'ellipsis-v'} style={styles.actionButtonIcon} />}>
+                    <ActionButton.Item buttonColor='green'
+                        title="Nova tarefa"
+                        onPress={() => { this.setState({ showModalAddTask: true }) }}>
                         <IconIonicons name="md-add" style={styles.actionButtonItemsIcon} />
                     </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#3498db' 
+                    <ActionButton.Item buttonColor='#3498db'
                         title={this.state.showDoneTasks ? 'Filtrar pendentes ' : 'Mostrar todas '}
                         onPress={this.toggleFilter}>
                         <Icon name={this.state.showDoneTasks ? 'filter' : 'list-ul'} style={styles.actionButtonItemsIcon} />
