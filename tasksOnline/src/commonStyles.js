@@ -3,6 +3,9 @@ export default {
     colors: {
         default: '#1631be',
         today: '#b13b44',
+        tomorrow:'#C9742E',
+        week: '#15721e',
+        month: '1632be',
         secondary: '#FFF',
         mainText: '#222',
         subText: '#555',

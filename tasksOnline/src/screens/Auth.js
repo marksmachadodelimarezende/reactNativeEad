@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const initialState = {
     name: '',
-    email: 'email@email.com',
+    email: 'marks@email.com',
     password: '123456',
     confirmPassword: '',
     stageNew: false,

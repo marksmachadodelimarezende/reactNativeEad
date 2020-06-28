@@ -3,7 +3,6 @@ import { Text, View, ImageBackground, FlatList, TouchableOpacity, Alert, Keyboar
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment'
 import 'moment/locale/pt-br'
-import todayImage from '../../assets/imgs/today.jpg'
 import styles from './agendaStyles'
 import Task from '../componentes/Task'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -83,7 +82,6 @@ export default class Agenda extends Component {
         }catch(e){
             showError(e)
         }
-
     }
 
     deleteTask = id => {
@@ -99,7 +97,7 @@ export default class Agenda extends Component {
 
     loadTasks = async () => {
         try {
-            const maxDate = moment().endOf('day').format('YYYY-MM-DD 23:59:59')
+            const maxDate = moment().add({days: this.props.daysAhead}).format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${urlServer}/tasks?date=${maxDate}`)
             console.log(res.data)
             this.setState({ tasks: res.data }, this.filterTasks)
@@ -108,14 +106,27 @@ export default class Agenda extends Component {
         }
     }
 
+    getImage = () => {
+        switch (this.props.daysAhead) {
+            case 0: return require('../../assets/imgs/today.jpg')
+            case 1: return require('../../assets/imgs/tomorrow.jpg')
+            case 7: return require('../../assets/imgs/week.jpg')
+            case 30: return require('../../assets/imgs/month.jpg')
+            default: return require('../../assets/imgs/today.jpg')
+        }
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <AddTask isVisible={this.state.showModalAddTask} onSave={this.addTask}
                     onCancel={() => { this.setState({ showModalAddTask: false }) }} />
-                <ImageBackground source={todayImage} style={styles.backgroud}>
+                <ImageBackground source={this.getImage()} style={styles.backgroud}>
                     <View style={styles.titleBar}>
-                        <Text style={styles.title}>Hoje</Text>
+                        <TouchableOpacity style={styles.menuBar} onPress={() => this.props.navigation.openDrawer()}>
+                            <Icon name={'bars'} style={styles.actionButtonItemsIcon} />
+                            <Text style={styles.title}>{this.props.title}</Text>
+                        </TouchableOpacity>
                         <View style={styles.iconBar}>
                             <Text style={styles.subtitle}>
                                 {getStringDateFormat(new Date(), 'ddd[,] D [de] MMMM [de] YYYY')}

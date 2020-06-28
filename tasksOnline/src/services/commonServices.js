@@ -1,6 +1,7 @@
 import { Alert, Platform } from 'react-native'
 
-const ipServer = Platform.OS === 'ios' ? 'localhost' : '10.0.0.19' //'192.168.0.5'
+const ipServer = Platform.OS === 'ios' ? 'localhost' : '192.168.0.5'
+//const ipServer = Platform.OS === 'ios' ? 'localhost' : '10.0.0.19'
 const portServer = 3000
 const urlServer = `http://${ipServer}:${portServer}`
 

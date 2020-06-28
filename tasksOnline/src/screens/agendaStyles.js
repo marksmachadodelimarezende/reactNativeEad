@@ -20,6 +20,12 @@ const styles = StyleSheet.create({
         fontFamily: commonStyles.fontFamily,
         color: commonStyles.colors.secondary,
         fontSize: 40,
+        paddingHorizontal: 10,
+    },
+    menuBar: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
     subtitle: {
         fontFamily: commonStyles.fontFamily,
@@ -46,12 +52,13 @@ const styles = StyleSheet.create({
         height: 22,
         backgroundColor: commonStyles.colors.transparent,
         color: 'black',
-      },
+    },
     actionButtonItemsIcon: {
         fontSize: 20,
         height: 22,
         color: 'white',
-      },
+    },
+      
 })
 
 export default styles
