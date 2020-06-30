@@ -6,7 +6,13 @@ const portServer = 3000
 const urlServer = `http://${ipServer}:${portServer}`
 
 function showError(err) {
-    Alert.alert('Ops! Ocorreu um problema!', `Mensagem: ${err}`)
+    //console.log(Object.keys(err))
+    if (err.response && err.response.data) {
+        Alert.alert('Ops! Ocorreu um problema!', `Mensagem: ${err.response.data}`)
+    } else {
+        Alert.alert('Ops! Ocorreu um problema!', `Mensagem: ${err}`)
+    }
+    
 }
 
 function showSucess(msg) {

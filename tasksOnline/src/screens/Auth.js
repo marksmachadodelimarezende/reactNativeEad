@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ImageBackground, Text, View, TouchableOpacity, Keyboard, Alert } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 import styles from './authStyles'
 import LoginImage from '../../assets/imgs/login.jpg'
 import AuthInput from '../componentes/AuthInput'
@@ -57,8 +58,9 @@ export default class Auth extends Component {
     signin = async () =>{
         try {
             const res = await axios.post(`${urlServer}/signin`, this.state)
+            AsyncStorage.setItem('userData', JSON.stringify(res.data))
             axios.defaults.headers.common['Authorization'] = `bearer ${res.data.token}`
-            this.props.navigation.navigate('Home')
+            this.props.navigation.navigate('Home', res.data)
         }catch(e){
             showError(e)
         }

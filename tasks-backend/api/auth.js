@@ -4,8 +4,10 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
     const signin = async (req, res) => {
+        const msgResposeError = 'Dados incorretos para autenticação!'
+        //console.log('Efetuando validacoes LOGIN')
         if (!req.body.email || !req.body.password) {
-            return res.status(400).send('Dados incompletos!')
+            return res.status(400).send(msgResposeError)
         }
 
         const user = await app.db('users')
@@ -15,7 +17,7 @@ module.exports = app => {
         if (user) {
             bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
                 if (err || !isMatch) {
-                    return res.send(401).send()
+                    return res.status(401).send(msgResposeError)
                 }
 
                 const payload = { id: user.id }
@@ -26,7 +28,7 @@ module.exports = app => {
                 })
             })
         } else {
-            res.status(400).send('Dados incorretos para autenticação!')
+            return res.status(400).send(msgResposeError)
         }
     }
 
